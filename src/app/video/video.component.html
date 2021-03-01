@@ -1,0 +1,49 @@
+<div class="videoContainer" #videoContainer>
+  <video
+    #video
+    (loadedmetadata)="loadedMetadata($event)"
+    [ngStyle]="setVideoStyle(video, videoContainer)"
+    [ngClass]="{
+      'videoContainer--video': true,
+      'videoContainer--portrait': !isLandScape(video),
+      'videoContainer--landscape': isLandScape(video)
+    }"
+    (timeupdate)="onTimeUpdate(video)"
+    [src]="safeUrl"
+    (ended)="onEnded()"
+  >
+    Your browser does not support the video tag.
+  </video>
+  <div
+    #videoControls
+    class="videoContainer--controls"
+    [ngStyle]="setControlsStyle(video, videoContainer, videoControls)"
+  >
+    <button class="videoContainer--controls--control" (click)="onPlay(video)">
+      <i *ngIf="video.paused" class="fas fa-play"></i>
+      <i *ngIf="!video.paused" class="fas fa-pause"></i>
+    </button>
+    <button class="videoContainer--controls--control" (click)="onMute(video)">
+      <i *ngIf="!video.muted" class="fas fa-volume-up"></i>
+      <i *ngIf="video.muted" class="fas fa-volume-mute"></i>
+    </button>
+    <button class="videoContainer--controls--control">
+      <i class="fas fa-expand"></i>
+      <!-- <i class="fas fa-compress"></i> -->
+    </button>
+    <div class="videoContainer--controls--progress">
+      <input
+      id="rangeText"
+      type="range"
+      [value]="progress"
+      min="0"
+      max="100"
+      class="videoContainer--controls--progress--bar"
+      (mousedown)="onTemporalPause(video)"
+      (mouseup)="onTemporalPlay(video)"
+      (input)="onNewProgress($event, video)"
+      />
+      <span class="videoContainer--controls--progress--time">{{videoTime}}</span>
+    </div>
+  </div>
+</div>

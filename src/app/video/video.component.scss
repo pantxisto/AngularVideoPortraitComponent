@@ -1,0 +1,80 @@
+.videoContainer {
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  &--video {
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+  }
+  &--portrait {
+    transform: translate(-50%, -50%);
+  }
+  &--landscape {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  &--controls {
+    opacity: 0;
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    background-color: rgba(165, 154, 154, 0.8);
+    position: relative;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &--control {
+      border: none;
+      margin: 2px;
+      border-radius: 30%;
+      flex-grow: 1;
+      &:focus {
+        outline: 0;
+      }
+      &:hover {
+        margin: 1px;
+        border: 1px solid rgb(102, 97, 97);
+        background-color: rgb(117, 103, 103);
+        transition: 0.2s;
+      }
+    }
+    &--progress {
+      flex-grow: 4;
+      position: relative;
+      &--bar {
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        width: 90%;
+        height: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &--bar:hover + &--time {
+        opacity: .8;
+        transition: .5s;
+      }
+
+      &--time {
+        opacity: 0;
+        display: inline-block;
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        color: black;
+      }
+    }
+  }
+  &:hover &--controls {
+    opacity: 1;
+    transition: opacity 0.8s;
+  }
+}
